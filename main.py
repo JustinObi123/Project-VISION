@@ -5,10 +5,10 @@ pygame.init()
 SCREEN = pygame.display.set_mode((1280, 720))
 pygame.display.set_caption("Menu")
 
-BG = pygame.image.load("")
+BG = pygame.image.load("\\assets\\images\\inabakumorilogo.png")
 
 def get_font(size): # Returns Press-Start-2P in the desired size
-    return pygame.font.Font("assets/font.ttf", size)
+    return pygame.font.Font("\\assets\\font\\Roboto-Light.ttf", size)
 
 def main_menu():
     while True:
@@ -69,3 +69,5 @@ def play():
                     main_menu()
 
         pygame.display.update()
+        
+main_menu()
