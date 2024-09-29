@@ -2,15 +2,14 @@ import pygame, sys
 import time
 
 from button import Button
+from drawing_canvas import drawingCanvasScreen
+from utility_functions import get_font
 
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
 pygame.display.set_caption("Menu")
 
 BG = pygame.image.load("assets/images/darkBlueMountain.png")
-
-def get_font(size): # Returns Press-Start-2P in the desired size
-    return pygame.font.Font("assets/fonts/Roboto-Light.ttf", size)
 
 def mainMenuScreen():
     while True:
@@ -76,7 +75,7 @@ def playScreen():
                 if backButton.checkForInput(playMousePosition):
                     mainMenuScreen()
                 if continueToCanvasButton.checkForInput(playMousePosition):
-                    drawingCanvasScreen()
+                    drawingCanvasScreen(screen)
 
         pygame.display.update()
         
@@ -90,52 +89,6 @@ def playScreen():
 #     playScreenText = get_font(25).render("Here is your scenario:", True, "White")
 #     textRectangle = playScreenText.get_rect(center=(640, 260))
 #     screen.blit(playScreenText, textRectangle)
-    
-DOUBLE_CLICK_TIME = 1
-CANVAS_BACKGROUND_COLOR = "White"
-def drawingCanvasScreen():
-    # playMousePosition = pygame.mouse.get_pos()
-    timeRemaining = 60
-    isDrawing = False
-    drawingColor = (0, 0, 0)
-    
-    screen.fill(CANVAS_BACKGROUND_COLOR)
-    
-    while True:
-        
-        # Declaring text elements
-        timerText = get_font(20).render(f"Time Remaining: {timeRemaining}", True, "Black")
-        toggleText = get_font(40).render("Blink twice to toggle!", True, "Black")
-        hideToggleText = get_font(40).render("Blink twice to toggle!", True, CANVAS_BACKGROUND_COLOR)
-        
-        
-        # Declaring text bounding boxes
-        textRect = timerText.get_rect(center=(100, 20))
-        toggleRect = toggleText.get_rect(center=(640, 30)) # Same bounding box can be used for the toggle text and hide toggle text.
-        
-        # Blitting in necessary elements
-        screen.blit(timerText, textRect)
-        
-        # Will draw/wipe the toggle "tooltip" as needed.
-        if isDrawing: screen.blit(hideToggleText, toggleRect)
-        else: screen.blit(toggleText, toggleRect)
-        
-        # Event loop
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()   
-                sys.exit()
-            
-            #    
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                isDrawing = not isDrawing
-
-            if event.type == pygame.MOUSEMOTION and isDrawing:
-                pos =  pygame.mouse.get_pos()
-                pygame.draw.circle(screen, drawingColor, (pos[0], pos[1]), 5.0)
-                
-                        
-        pygame.display.update()
 
 
 
