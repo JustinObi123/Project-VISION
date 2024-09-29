@@ -1,3 +1,5 @@
+import time
+import pygame, sys
 from dotenv import load_dotenv 
 import os
 from openai import OpenAI 
@@ -6,6 +8,11 @@ import base64
 import random
 import re
 from ImageInterpreter import imageInterpreter
+from pygame.locals import *
+from drawing_canvas import drawingCanvasScreen
+
+pygame.init()
+screen = pygame.display.set_mode((1280, 720))
 
 load_dotenv()
 api_key = os.getenv('OPENAI_API_KEY')
@@ -94,8 +101,10 @@ if assistant_response:
 
 
 while level <= MAX_LEVEL:
-
-      message = imageInterpreter("assets/images/userDrawing.jpg")
+      #call canvas thinga majig
+      time.sleep(10)
+      message = drawingCanvasScreen(screen)
+      #message = imageInterpreter("assets/images/userDrawing.jpg")
       if message:
         messages.append({
           "role": "user", "content": message},
