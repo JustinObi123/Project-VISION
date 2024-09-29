@@ -1,9 +1,11 @@
 import pygame, sys
-import time
+from pygame.locals import *
 
 from button import Button
 from drawing_canvas import drawingCanvasScreen
+from scenario import scenarioScreen
 from utility_functions import get_font
+
 
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
@@ -37,7 +39,7 @@ def mainMenuScreen():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if playButton.checkForInput(menuMousePosition):
-                    playScreen()
+                    scenarioScreen(screen, "rot.")
                 if quitButton.checkForInput(menuMousePosition):
                     pygame.quit()
                     sys.exit()

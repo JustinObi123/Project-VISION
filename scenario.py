@@ -1,10 +1,13 @@
 import sys
 import pygame
 from pygame.locals import *
+
 from time import sleep
 from button import Button
+from utility_functions import get_font
+from drawing_canvas import drawingCanvasScreen
 
-pygame.init()
+# pygame.init()
 
 # Define a consistent color scheme
 COLOR_SCHEME = {
@@ -19,15 +22,10 @@ COLOR_SCHEME = {
 # Set up screen dimensions
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
-mainScreen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+# mainScreen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Scenario Screen")
 
-def get_font(size, bold=False, italic=False):
-    """
-    Returns a Pygame font object. Adjust 'bold' and 'italic' as needed.
-    """
-    font = pygame.font.SysFont("Arial", size, bold=bold, italic=italic)
-    return font
+
 
 def wrap_text(text, font, max_width):
     """
@@ -84,7 +82,7 @@ def scenarioScreen(mainScreen, scenarioInput):
 
     # Create the next button before the loop
     nextButton = Button(
-        image=pygame.image.load("PlayRect.png").convert_alpha(),
+        image=pygame.image.load("assets/images/PlayRect.png").convert_alpha(),
         pos=(SCREEN_WIDTH // 2, 630),
         text_input="DRAW",
         font=get_font(75),
@@ -103,7 +101,7 @@ def scenarioScreen(mainScreen, scenarioInput):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 scenarioMousePosition = pygame.mouse.get_pos()
                 if nextButton.checkForInput(scenarioMousePosition):
-                    drawingCanvasScreen()  # Make sure this function is defined
+                    drawingCanvasScreen(mainScreen)  # Make sure this function is defined
 
         # Get mouse position
         scenarioMousePosition = pygame.mouse.get_pos()
@@ -127,29 +125,13 @@ def scenarioScreen(mainScreen, scenarioInput):
                 break  # Stop drawing if exceeding the text area
 
         # Render "Scenario" title
-        title_font = get_font(100, bold=True)
+        title_font = get_font(100)
         scenarioText = title_font.render("Scenario", True, COLOR_SCHEME["accent"])
         scenarioRect = scenarioText.get_rect(center=(SCREEN_WIDTH // 2, 70))  # Centered horizontally
         mainScreen.blit(scenarioText, scenarioRect)
 
         # Update and render the next button
-        nextButton.changeColor(scenarioMousePosition)
+        nextButton.changeFontColor(scenarioMousePosition)
         nextButton.update(mainScreen)
 
         pygame.display.update()
-
-# Ensure you have a function defined for drawingCanvasScreen
-def drawingCanvasScreen():
-    """
-    Placeholder for the drawing canvas screen.
-    """
-    # Implement the drawing canvas screen here
-    pass
-
-if __name__ == "__main__":
-    # Example usage
-    sample_text = (
-        "This is a sample scenario text that will be wrapped and displayed within the text area. "
-        "Make sure it looks aesthetically pleasing and fits well within the designated space."
-    )
-    scenarioScreen(mainScreen, sample_text)
