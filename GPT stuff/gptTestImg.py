@@ -10,7 +10,7 @@ api_key = os.getenv('OPENAI_API_KEY')
 OpenAI.api_key = api_key
 client = OpenAI()
 
-IMAGE_PATH = "GPT imgs/knife.jpg"
+IMAGE_PATH = "GPT imgs/hehe.jpg"
 
 def encode_image(image_path):
     with open(image_path, "rb") as image_file:
@@ -20,11 +20,11 @@ base64_image = encode_image(IMAGE_PATH)
 completion = client.chat.completions.create(
     model="gpt-4o-mini",
     messages=[
-        {"role": "system", "content": ""},
+        {"role": "system", "content": "you are trying to detect a tool out of a given image"},
         {
             "role": "user",
             "content": [
-                {"type": "text", "text": "what is this image?"},
+                {"type": "text", "text": "what is this image? respond with one word at all times. even if you dont recognize the image, make a guess"},
                 {"type": "image_url", "image_url": {
                     "url": f"data:image/jpg;base64,{base64_image}"}
                 }
@@ -33,4 +33,4 @@ completion = client.chat.completions.create(
     ]
 )
 
-print(completion.choices[0].message)
+print(completion.choices[0].message.content)
