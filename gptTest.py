@@ -5,6 +5,7 @@ from IPython.display import Image, display, Audio, Markdown
 import base64
 import random
 import re
+from ImageInterpreter import imageInterpreter
 
 load_dotenv()
 api_key = os.getenv('OPENAI_API_KEY')
@@ -94,7 +95,7 @@ if assistant_response:
 
 while level <= MAX_LEVEL:
 
-      message = input("User : ")
+      message = imageInterpreter("assets/images/userDrawing.jpg")
       if message:
         messages.append({
           "role": "user", "content": message},
