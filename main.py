@@ -79,16 +79,6 @@ def playScreen():
 
         pygame.display.update()
         
-    
-# TODO: Complete scenario screen!!!
-# def scenarioScreen():
-#     playMousePosition = pygame.mouse.get_pos()
-
-#     screen.fill("black")
-
-#     playScreenText = get_font(25).render("Here is your scenario:", True, "White")
-#     textRectangle = playScreenText.get_rect(center=(640, 260))
-#     screen.blit(playScreenText, textRectangle)
 
 
 
