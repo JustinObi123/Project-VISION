@@ -28,7 +28,7 @@ def mainMenuScreen():
         screen.blit(menuText, menuRect)
 
         for button in [playButton, quitButton]:
-            button.changeColor(menuMousePosition)
+            button.changeFontColor(menuMousePosition)
             button.update(screen)
         
         for event in pygame.event.get():
@@ -60,9 +60,9 @@ def playScreen():
         backButton = Button(image=pygame.image.load("assets/images/PlayRect.png"), pos=(640, 460), text_input="BACK", font=get_font(75), base_color="White", hovering_color="Green")
 
 
-        backButton.changeColor(playMousePosition)
+        backButton.changeFontColor(playMousePosition)
         backButton.update(screen)
-        continueToCanvasButton.changeColor(playMousePosition)
+        continueToCanvasButton.changeFontColor(playMousePosition)
         continueToCanvasButton.update(screen)
 
         for event in pygame.event.get():
