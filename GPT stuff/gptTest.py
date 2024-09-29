@@ -41,11 +41,15 @@ win_summary = (
   "conclude journey, congrats user for surviving"
 )
 
+current_scenario = ""
 
+
+
+MAX_LEVEL = 5
 
 isFail = False
 
-count = 0
+level = 1
 
 messages=[
             {
@@ -88,7 +92,7 @@ if assistant_response:
     })
 
 
-while count < 2:
+while level <= MAX_LEVEL:
 
       message = input("User : ")
       if message:
@@ -96,8 +100,9 @@ while count < 2:
           "role": "user", "content": message},
         )
         reply = get_completion(messages)
+        current_scenario = reply
         if reply:
-          if count!=1:
+          if level!= MAX_LEVEL-1:
             print(f"ChatGPT: {reply}")
           # Append assistant's reply to the messages
           messages.append({
@@ -109,7 +114,7 @@ while count < 2:
               break
             
         
-        count += 1
+        level += 1
       else:
         print("Please enter a valid tool.")
 if isFail:
