@@ -5,7 +5,9 @@ from IPython.display import Image, display, Audio, Markdown
 import base64
 import random
 import re
+import time
 from ImageInterpreter import imageInterpreter
+from canvas import paint
 
 load_dotenv()
 api_key = os.getenv('OPENAI_API_KEY')
@@ -94,7 +96,8 @@ if assistant_response:
 
 
 while level <= MAX_LEVEL:
-
+      time.sleep(10)
+      paint()
       message = imageInterpreter("assets/images/userDrawing.jpg")
       if message:
         messages.append({
@@ -118,6 +121,7 @@ while level <= MAX_LEVEL:
         level += 1
       else:
         print("Please enter a valid tool.")
+      
 if isFail:
   messages.append({"role": "assistant", "content": summary})
 else:
